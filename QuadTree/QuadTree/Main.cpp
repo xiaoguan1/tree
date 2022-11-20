@@ -17,7 +17,11 @@ int main()
 
 	// 四叉树：最大深度为TREE_DEPTH、节点包含的最大对象个数为MAX_OBJECT
 	QuadTree *p_tree = new QuadTree(TREE_DEPTH, MAX_OBJECT);
+
+	// 指定的矩形空间【 QuadTree::Rect(LB_X, LB_Y, RT_X, RT_Y) 】
 	p_tree->InitQuadTreeNode(QuadTree::Rect(LB_X, LB_Y, RT_X, RT_Y));
+
+	// 初始化随机种子
 	srand((unsigned)time(NULL));
 	for (int i = 0; i < RAND_NUM; ++i)
 	{
@@ -26,6 +30,7 @@ int main()
 		pos.longitude = rand() % (int)(RT_Y - LB_Y) + LB_Y + 1;
 		p_tree->Insert(pos, p_tree->GetTreeRoot());
 	}
+
 	p_tree->PrintAllQuadTreeLeafNode(p_tree->GetTreeRoot());
 
 	int pos_x, pos_y;

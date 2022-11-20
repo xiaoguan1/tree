@@ -9,7 +9,7 @@ QuadTree::~QuadTree()
 	delete m_root;// 删除根节点即可
 }
 
-//初始化四叉树
+// 初始化一个节点并作为根节点
 void QuadTree::InitQuadTreeNode(Rect rect)
 {
 	m_root = new QuadTreeNode;
