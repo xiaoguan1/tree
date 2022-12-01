@@ -21,14 +21,14 @@ int main()
 	// 指定的矩形空间【 QuadTree::Rect(LB_X, LB_Y, RT_X, RT_Y) 】
 	p_tree->InitQuadTreeNode(QuadTree::Rect(LB_X, LB_Y, RT_X, RT_Y));
 
-	// 初始化随机种子
+	// 初始化随机种子(设置地图中散乱的点)
 	srand((unsigned)time(NULL));
 	for (int i = 0; i < RAND_NUM; ++i)
 	{
-		QuadTree::PosInfo pos;
-		pos.latitude = rand() % (int)(RT_X - LB_X) + LB_X + 1;
-		pos.longitude = rand() % (int)(RT_Y - LB_Y) + LB_Y + 1;
-		p_tree->Insert(pos, p_tree->GetTreeRoot());
+		PosInfo *pos = new PosInfo();
+		pos->latitude = rand() % (int)(RT_X - LB_X) + LB_X + 1;
+		pos->longitude = rand() % (int)(RT_Y - LB_Y) + LB_Y + 1;
+		p_tree->Insert(*pos, p_tree->GetTreeRoot());
 	}
 
 	p_tree->PrintAllQuadTreeLeafNode(p_tree->GetTreeRoot());

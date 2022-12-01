@@ -37,7 +37,12 @@ void QuadTree::CreateQuadTreeNode(int depth, Rect rect, QuadTreeNode *p_node)
 	}
 }
 
-//分割节点
+void print_r(double a, double b, double c, double d) {
+	cout << "print_r" << endl;
+	cout << a << " " << b << " " << c << " " << d << endl << endl;;
+}
+
+//分割节点(根据散乱的点，分割父节点矩形)
 void QuadTree::Split(QuadTreeNode *pNode)
 {
 	if (pNode == NULL)
@@ -65,6 +70,11 @@ void QuadTree::Split(QuadTreeNode *pNode)
 	QuadTreeNode *p_node2 = new QuadTreeNode;
 	QuadTreeNode *p_node3 = new QuadTreeNode;
 
+	print_r(start_x + sub_width, start_y + sub_height, end_x, end_y);
+	print_r(start_x, start_y + sub_height, start_x + sub_width, end_y);
+	print_r(start_x, start_y, start_x + sub_width, start_y + sub_height);
+	print_r(start_x + sub_width, start_y, end_x, start_y + sub_height);
+
 	CreateQuadTreeNode(pNode->depth + 1, Rect(start_x + sub_width, start_y + sub_height, end_x, end_y), p_node0);
 	CreateQuadTreeNode(pNode->depth + 1, Rect(start_x, start_y + sub_height, start_x + sub_width, end_y), p_node1);
 	CreateQuadTreeNode(pNode->depth + 1, Rect(start_x, start_y, start_x + sub_width, start_y + sub_height), p_node2);
@@ -82,9 +92,7 @@ void QuadTree::Split(QuadTreeNode *pNode)
 void QuadTree::Insert(PosInfo pos, QuadTreeNode *p_node)
 {
 	if (p_node == NULL)
-	{
 		return;
-	}
 
 	if (p_node->child_num != 0)
 	{
@@ -101,6 +109,7 @@ void QuadTree::Insert(PosInfo pos, QuadTreeNode *p_node)
 			Split(p_node);
 			for (std::vector<PosInfo>::iterator it = p_node->pos_array.begin(); it != p_node->pos_array.end(); ++it)
 			{
+				// 将父节点的点数据移至到孩子节点
 				Insert(*it, p_node);
 			}
 			p_node->pos_array.clear();
@@ -253,7 +262,7 @@ void QuadTree::PrintAllQuadTreeLeafNode(QuadTreeNode *p_node)
 	}
 
 	ofstream myfile;
-	myfile.open("F:\\Node.txt", ios::out | ios::app);
+	myfile.open("E:\\Node.txt", ios::out | ios::app);
 	if (!myfile)
 	{
 		return;

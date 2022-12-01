@@ -4,7 +4,7 @@
 
 #include <vector>
 
-const int RAND_NUM = 10;			//随机点数量
+const int RAND_NUM = 100;			//随机点数量
 const int MAX_OBJECT = 5;			//每个节点最大数量
 const int SEARCH_NUM = 15;			//需要搜索位置数量
 
@@ -73,7 +73,6 @@ public:
 	int			depth;					//节点的深度
 };
 
-
 class QuadTree:public QuadTreeNode
 {
 public:
@@ -114,7 +113,7 @@ public:
 	int			  GetMaxObjects() { return m_maxobjects; }
 private:
 	int m_depth;				//四叉树深度
-	int m_maxobjects;			//节点包含的最大对象个数
+	int m_maxobjects;			//一个区域内最多含有多少个数据点
 	QuadTreeNode *m_root;		//四叉树根节点
 };
 
